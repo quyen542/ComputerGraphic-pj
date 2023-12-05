@@ -1,4 +1,6 @@
-import { Sitting, Running, Jumping, Falling, Rolling } from "./playerStates.js";
+import { Sitting, Running, Jumping, Falling, Rolling, Diving, Hit } from "./playerStates.js";
+import { CollisionAnimation } from "./collisionAnimation.js";
+import { FloatingMessages } from "./floatingMessages.js";
 
 //Create player
 export class Player{
@@ -24,7 +26,8 @@ export class Player{
         this.speed = 0;
         this.maxspeed = 10;
         //state for player
-        this.states = [new Sitting(this.game), new Running(this.game), new Jumping(this.game), new Falling(this.game), new Rolling(this.game)];
+        this.states = [new Sitting(this.game), new Running(this.game), new Jumping(this.game), new Falling(this.game), new Rolling(this.game), new Diving(this.game), new Hit(this.game)];
+        this.currentState = null;
 
     }
 
@@ -34,15 +37,19 @@ export class Player{
         //check input array
         //horizontal movement
         this.x += this.speed;
-        if(input.includes('ArrowRight')){
+        if(input.includes('ArrowRight') && this.currentState !== this.states[6]){
             this.speed = this.maxspeed;
         }
-        else if(input.includes('ArrowLeft')){
+        else if(input.includes('ArrowLeft') && this.currentState !== this.states[6]){
             this.speed = -this.maxspeed;
         }
         else{
             this.speed = 0;
         }
+
+        //horizontal boundaries
+
+
 
         //prevent go outside canvas
         if(this.x < 0){
@@ -62,6 +69,11 @@ export class Player{
             this.vy = 0;
         }
 
+        //vertical boundaries
+        if(this.y > this.game.height - this.height - this.game.groundMargin){
+            this.y = this.game.height - this.height - this.game.groundMargin;
+        }
+
         //sprite animation
 
         if(this.frameTimer > this.frameInterval){
@@ -74,6 +86,30 @@ export class Player{
             }
         }else{
             this.frameTimer += deltaTime;
+        }
+
+        //energy check
+        if(this.currentState === this.states[4]){
+
+            if(this.game.energyTimer > this.game.energyInterval){
+                this.game.energyTimer = 0;
+                this.game.energy -= 5;
+                if(this.game.energy < 0){
+                    this.game.energy = 0;
+                }
+            }else{
+                this.game.energyTimer += deltaTime;
+            }
+
+        }else{
+            if(this.game.energyTimer > this.game.energyInterval){
+                this.game.energyTimer = 0;
+                if(this.game.energy < this.game.maxEnergy) {
+                    this.game.energy += 5;
+                }
+            }else{
+                this.game.energyTimer += deltaTime;
+            }
         }
 
 
@@ -115,9 +151,17 @@ export class Player{
             ){
                 //collision detected
                 enemy.markedForDeletion = true;
-                this.game.score++;
-            }else{
-                // no collision
+                this.game.collisions.push(new CollisionAnimation(this.game, enemy.x + enemy.width * 0.5, enemy.y + enemy.height * 0.5 ));
+                if(this.currentState === this.states[4] || this.currentState === this.states[5]){
+                    this.game.score++;
+                    this.game.floatingMessages.push(new FloatingMessages('+1', enemy.x, enemy.y, 150, 50 ));
+                }else{
+                    this.setState(6, 0);
+                    this.game.lives--;
+                    if(this.game.lives <= 0){
+                        this.game.gameOver = true;
+                    }
+                }
             }
         })
     }
