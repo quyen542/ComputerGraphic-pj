@@ -27,11 +27,18 @@ export class Sitting extends State {
         this.game.player.maxFrame = 4;
     }
     handleInput(input){
-        if(input.includes('ArrowLeft') || input.includes('ArrowRight')){
-            this.game.player.setState(states.RUNNING, 1);
-        } else if (input.includes('f') && this.game.energy > 0){
-            this.game.player.setState(states.ROLLING, 2);
+        if(input.includes('ArrowRight') && !this.game.startGame){
+            this.game.startGame = true;
         }
+
+        if(this.game.startGame){
+            if(input.includes('ArrowLeft') || input.includes('ArrowRight')){
+                this.game.player.setState(states.RUNNING, 1);
+            } else if (input.includes('f') && this.game.energy > 0){
+                this.game.player.setState(states.ROLLING, 2);
+            }
+        }
+
     }
 }
 

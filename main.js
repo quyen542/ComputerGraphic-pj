@@ -51,12 +51,14 @@ window.addEventListener('load', function () {
             this.energyInterval = 500;
             //set live
             this.lives = 5;
-
-
+            //set start game
+            this.startGame = false;
 
         }
         update(deltaTime){
-            this.time += deltaTime;
+            if(this.startGame){
+                this.time += deltaTime;
+            }
             if(this.time > this.maxTime){
                 this.gameOver = true;
             }

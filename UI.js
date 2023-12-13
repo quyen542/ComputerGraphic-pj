@@ -40,8 +40,8 @@ export class UI{
                 context.font = this.fontsize * 0.7 + 'px ' + this.fontFamily;
                 context.fillText('Nope, better luck next time!',  this.game.width * 0.5, this.game.height * 0.5 + 20 );
             }
-
         }
+
         context.restore();
 
     }
