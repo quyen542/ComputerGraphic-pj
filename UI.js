@@ -32,11 +32,11 @@ export class UI{
             context.textAlign = 'center';
             context.font = this.fontsize * 2 + 'px ' + this.fontFamily;
             if(this.game.score > this.game.winningScore){
-                context.fillText('Boo-yah', this.game.width * 0.5, this.game.height * 0.5 - 20);
+                context.fillText('Congratulation!', this.game.width * 0.5, this.game.height * 0.5 - 20);
                 context.font = this.fontsize * 0.7 + 'px ' + this.fontFamily;
                 context.fillText('what are the creatures of the night afraid of? You !!!',  this.game.width * 0.5, this.game.height * 0.5 + 20 );
             }else{
-                context.fillText('Love at the first bite?', this.game.width * 0.5, this.game.height * 0.5 - 20);
+                context.fillText('Game over!', this.game.width * 0.5, this.game.height * 0.5 - 20);
                 context.font = this.fontsize * 0.7 + 'px ' + this.fontFamily;
                 context.fillText('Nope, better luck next time!',  this.game.width * 0.5, this.game.height * 0.5 + 20 );
             }
