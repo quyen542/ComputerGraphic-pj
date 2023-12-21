@@ -112,6 +112,16 @@ export class Player{
             }
         }
 
+        //Hit sound check
+        if (this.currentState === this.states[6]){
+                    if( this.frameX === 0){
+                    this.sound = new Audio();
+                    this.sound.src= 'sound/Dizzy.mp3' ;
+                    this.sound.volume= 0.1;
+                    this.sound.play();
+                    }
+        }
+
 
 
 
@@ -155,6 +165,7 @@ export class Player{
                 if(this.currentState === this.states[4] || this.currentState === this.states[5]){
                     this.game.score++;
                     this.game.floatingMessages.push(new FloatingMessages('+1', enemy.x, enemy.y, 150, 50 ));
+
                 }else{
                     this.setState(6, 0);
                     this.game.lives--;

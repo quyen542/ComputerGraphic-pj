@@ -164,6 +164,7 @@ export class Hit extends State {
         this.game.player.frameX = 0;
         this.game.player.maxFrame = 10;
         this.game.player.frameY = 4;
+
     }
     handleInput(input){
 
