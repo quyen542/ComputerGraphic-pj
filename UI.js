@@ -42,6 +42,14 @@ export class UI{
             }
         }
 
+        if(!this.game.startGame){
+            context.textAlign = 'center';
+            context.font = this.fontsize * 2 + 'px ' + this.fontFamily;
+            context.fillText('Are You Ready!', this.game.width * 0.5, this.game.height * 0.5 - 20);
+            context.font = this.fontsize * 0.7 + 'px ' + this.fontFamily;
+            context.fillText('Press -> to start the game',  this.game.width * 0.5, this.game.height * 0.5 + 20 );
+        }
+
         context.restore();
 
     }

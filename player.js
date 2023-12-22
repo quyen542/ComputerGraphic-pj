@@ -84,6 +84,15 @@ export class Player{
             else {
                 this.frameX = 0;
             }
+            //Hit sound check
+            if (this.currentState === this.states[6]){
+                if( this.frameX === 1){
+                    this.sound = new Audio();
+                    this.sound.src= 'sound/Dizzy.mp3' ;
+                    this.sound.volume= 0.1;
+                    this.sound.play();
+                }
+            }
         }else{
             this.frameTimer += deltaTime;
         }
@@ -112,15 +121,7 @@ export class Player{
             }
         }
 
-        //Hit sound check
-        if (this.currentState === this.states[6]){
-                    if( this.frameX === 0){
-                    this.sound = new Audio();
-                    this.sound.src= 'sound/Dizzy.mp3' ;
-                    this.sound.volume= 0.1;
-                    this.sound.play();
-                    }
-        }
+
 
 
 
