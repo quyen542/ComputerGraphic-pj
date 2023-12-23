@@ -94,8 +94,53 @@ export class Player{
                 }
             }
         }else{
+
             this.frameTimer += deltaTime;
         }
+            if(this.frameTimer > this.frameInterval){
+                        this.frameTimer = 0;
+                        if(this.frameX < this.maxFrame){
+                            this.frameX++;
+                        }
+                        else {
+                            this.frameX = 0;
+                        }
+                        //jump sound check
+                        if (this.currentState === this.states[3]){
+                            if( this.frameX === 1){
+                                this.sound = new Audio();
+                                this.sound.src= 'sound/jump.mp3' ;
+                                this.sound.volume= 0.1;
+                                this.sound.play();
+                            }
+                        }
+                    }else{
+
+                        this.frameTimer += deltaTime;
+                    }
+
+            if(this.frameTimer > this.frameInterval){
+                        this.frameTimer = 0;
+                        if(this.frameX < this.maxFrame){
+                            this.frameX++;
+                        }
+                        else {
+                            this.frameX = 0;
+                        }
+                        //roll sound check
+                        if (this.currentState === this.states[4]){
+                            if( this.frameX === 1){
+                                this.sound = new Audio();
+                                this.sound.src= 'sound/fireball.mp3' ;
+                                this.sound.volume= 0.1;
+                                this.sound.play();
+                            }
+                        }
+                    }else{
+
+                        this.frameTimer += deltaTime;
+                    }
+            
 
         //energy check
         if(this.currentState === this.states[4]){
